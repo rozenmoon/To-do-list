@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+
+	body {
+			background-color: white;
+			margin: 0;
+			padding: 0;
+	}
+
+	.header {
+		    background-color: #f44336;
+		    padding: 30px 40px;
+		    color: white;
+		    text-align: center;
+	}
+	.input{
+		    width: 70%;
+		    float: left;
+		    font-size: 16px;
+	}
+
+	.addBtn {
+		    width: 19%;
+		    background: #d9d9d9;
+		    color: #555;
+		    float: left;
+		    text-align: center;
+		    font-size: 16px;
+		    cursor: pointer;
+		    transition: 0.3s;
+		    border-radius: 0;
+	}
+
+	.priority{
+
+			width: 10%;
+			font-size: 16px;
+	}
+
+	.High{
+
+			color: #ff0000;
+	}
+
+	.Medium{
+
+			color: #00ff00;
+	}
+
+	.Low{
+
+			color: #0000ff;
+	}
+
+
+	button {
+			border : none;
+	}
+
+	button.checked {
+		    text-decoration: line-through;
+			color: rgba(0,0,0,0.3);
+			background-color: rgba(255,255,255,0.3);
+	}
+
+	button.checked::before {
+		    content: '';
+		    position: absolute;
+		    border-style: solid;
+		    border-width: 0 2px 2px 0;
+		    top: 10px;
+		    left: 10px;
+		    transform: rotate(45deg);
+		    height: 15px;
+		    width: 7px;
+	}
+
+	.list1{
+			text-align: center;
+			position: relative;
+			padding: 20px;
+
+	}
+
+	.task{
+    		text-align: center;
+    		position: relative;
+    		font-size: 16px;
+    		height:40px;
+    		width: 80%;
+	}
+
+	.task:hover {
+			background-color: #ddd;
+	}
+
+	.close {
+
+			height:40px ;
+			width:40px ;
+			color: #ff0000;
+			font-size: 30px;
+			border-radius: 50%;
+			opacity: 0.3;
+
+	}
+	.close:hover {
+  			opacity: 1;
+	}
+
+/*	.close:before, .close:after {
+			position: absolute;
+			left: 15px;
+			content: ' ';
+			height: 33px;
+			width: 2px;
+			background-color: #333;
+	}
+	.close:before {
+  			transform: rotate(45deg);
+	}
+	.close:after {
+  			transform: rotate(-45deg);
+	}*/
+
+
+	</style>
+
+	<title>To Do List</title>
+</head>
+
+<body>
+
+<div class = "header">
+	<h1>TO DO LIST</h1>
+	<input type="text" name="task_description" id="task_description" placeholder="Title..." class = "input">
+	<select id = "prority" class = "priority">
+		<option value="High">High</option>
+		<option value="Medium">Medium</option>
+		<option value="Low">Low</option>
+	</select>
+	<button onclick= "on_Submit(task_description.value,prority.value)" class = "addBtn">Submit</button>
+	 <br>
+</div>
+
+
+<div id = "list" class = "list1">
+
+	
+</div>
+
+
+
+<script type="text/javascript">
+	function on_Submit(text,prority)
+	{
+		// Adding task in the button
+		var newbutton = document.createElement("button");
+		var newnode = document.createTextNode(text);
+		newbutton.classList.add('task');
+		newbutton.classList.add(prority);
+		newbutton.appendChild(newnode);
+
+		// Adding checked function to task button
+		newbutton.onclick = function() {
+			if(this.classList.contains('checked'))
+			{
+				this.classList.remove('checked');
+			}
+			else
+			{ 
+				this.classList.add('checked');
+			}
+		}
+
+
+		// checking if the task have some text in it
+		if( text == ''){
+			alert("Type something......");
+		}
+		else{
+
+			// Adding button to the list
+			var element = document.getElementById("list");
+			element.appendChild(newbutton);
+
+			// Adding cross button as well
+			var cross = document.createElement("button");
+			cross.classList.add('close');
+			var crosslist = document.createTextNode("\u00D7");
+			cross.appendChild(crosslist);
+			element.appendChild(cross);
+
+			cross.onclick = function() {
+				element.removeChild(newbutton);
+				element.removeChild(this);
+				element.removeChild(breaks);
+			}
+
+			var breaks = document.createElement("br");
+			element.appendChild(breaks);
+		}
+		document.getElementById("task_description").value = "";
+	}
+
+
+
+</script>
+</body>
+
+
+</html>
